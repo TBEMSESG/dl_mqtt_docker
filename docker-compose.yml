@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  dl_mqtt:
+    image: tbesesg/dl_mqtt:0.1
+    networks:
+      - shared-network
+    ports:
+      - 3000:3000
+
+  mqtt:
+    image: eclipse-mosquitto:latest
+    networks:
+      - shared-network
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - ./mosquitto2.conf:/mosquitto/config/mosquitto.conf
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+
+networks:
+  shared-network:
